@@ -30,12 +30,40 @@ export async function shortenURL(req, res){
 
 export async function getURL(req, res){
 
+    try {
+
+        const shortId = req.params.id;
+
+        const { rows: urlData } = await connection.query(
+            `SELECT id, "shortUrl", url
+            FROM urls
+            WHERE urls.id = $1`,
+            [shortId]
+        );
+
+        if(urlData.length === 0){
+            return res.status(404).send("This URL does not exist");
+        }
+
+        const [ returnData ] = urlData;
+
+        res.status(200).send(returnData);
+
+    } catch {
+        res.sendStatus(500);
+    }
 }
 
 export async function openURL(req, res){
 
+    
+
 }
 
 export async function deleteURL(req, res){
-    
+    try {
+
+    } catch {
+        res.sendStatus(500);
+    }
 }
