@@ -48,6 +48,7 @@ export async function getUser(req, res){
         res.status(200).send(returnData);
 
     } catch(error) {
+        
         res.send(error).status(500);
 
     }
