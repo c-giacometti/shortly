@@ -92,7 +92,30 @@ export async function deleteURL(req, res){
 
     try {
 
-        
+        const urlId = req.params.id;
+        const userId = res.locals.userId;
+
+        const { rows: confirmUser } = await connection.query(
+            `SELECT * FROM urls
+            WHERE id = $1`,
+            [urlId]
+        );
+
+        if(confirmUser.length === 0){
+            return res.status(404).send("URL not found");
+        }
+
+        if(confirmUser[0].userId != userId){
+            return res.sendStatus(401);
+        }
+
+        await connection.query(
+            `DELETE FROM urls
+            WHERE id = $1`,
+            [urlId]
+        );
+
+        res.sendStatus(204);
 
     } catch {
         res.sendStatus(500);
