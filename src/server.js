@@ -18,5 +18,5 @@ server.use(userRoutes);
 server.use(rankingRoutes);
 
 server.listen(process.env.PORT, () =>
-    console.log("servidor rodando na porta " + process.env.PORT)
+    console.log("servidor rodando na porta " + process.env.PORT + process.env.DATABASE_URL)
 );
