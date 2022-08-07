@@ -32,9 +32,8 @@ export async function getUser(req, res){
 
         res.status(200).send(returnData);
 
-    } catch {
-
-        res.sendStatus(500);
+    } catch(error) {
+        res.send(error).status(500);
 
     }
 }
