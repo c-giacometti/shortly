@@ -45,7 +45,7 @@ export async function signIn(req, res){
 
 export async function signUp(req, res){
 
-    try {
+    
         const newUser = req.body;
 
         const validNewUser = signUpSchema.validate(newUser);
@@ -81,8 +81,5 @@ export async function signUp(req, res){
 
         res.sendStatus(201);
 
-    } catch {
-        res.sendStatus(500);
-    }
 
 }
