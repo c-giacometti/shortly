@@ -56,14 +56,46 @@ export async function getURL(req, res){
 
 export async function openURL(req, res){
 
-    
-
-}
-
-export async function deleteURL(req, res){
     try {
+
+        const { shortUrl } = req.params;
+
+        const { rows: urlData } = await connection.query(
+            `SELECT url 
+            FROM urls
+            WHERE "shortUrl" = $1`,
+            [shortUrl]
+        );
+
+        if(urlData.length === 0){
+            return res.status(404).send("This URL does not exist");
+        }
+
+        await connection.query(
+            `UPDATE urls
+            SET "visitCount"= "visitCount" + 1
+            WHERE "shortUrl" = $1`,
+            [shortUrl]
+        );
+
+        const url = urlData[0].url;
+
+        res.redirect(url);
 
     } catch {
         res.sendStatus(500);
     }
+
+}
+
+export async function deleteURL(req, res){
+
+    try {
+
+        
+
+    } catch {
+        res.sendStatus(500);
+    }
+
 }
