@@ -15,7 +15,13 @@ export async function getUser(req, res){
             [userId]
         );
 
-        if(userData.length === 0){
+        const { rows: userExists } = await connection.query(
+            `SELECT * FROM users
+            WHERE id= $1`,
+            [userId]
+        );
+
+        if(userExists.length === 0){
             return res.status(404).send("User not found");
         }
 

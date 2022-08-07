@@ -58,7 +58,7 @@ export async function signUp(req, res){
         const { name, email, password, confirmPassword } = newUser;
 
         if(password !== confirmPassword){
-            return res.status(422).send("Confirme a senha corretamente");
+            return res.status(422).send("Confirm your password");
         }
 
         const emailExists = await connection.query(
